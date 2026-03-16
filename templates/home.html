@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <span class="eyebrow">Interior Design and Interior Work</span>
+            <h1>{{ site_settings.hero_title }}</h1>
+            <p>{{ site_settings.hero_subtitle }}</p>
+            <div class="hero-actions">
+                <a href="{{ url_for('public.projects') }}" class="btn btn-primary">View Projects</a>
+                <a href="{{ url_for('public.contact') }}" class="btn btn-secondary">Contact Us</a>
+            </div>
+        </div>
+        <div class="hero-card">
+            <p>Simple, modern, and thoughtfully executed interiors for homes, offices, and custom spaces.</p>
+            <ul>
+                <li>Complete interior solutions</li>
+                <li>Custom furniture and finishes</li>
+                <li>Design-to-delivery support</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container section-heading">
+        <span class="eyebrow">Introduction</span>
+        <h2>Built for people who want beautiful spaces without unnecessary complexity.</h2>
+        <p>Rockwood Studio helps clients shape homes and commercial interiors with a clear process, functional layouts, and premium finishing details.</p>
+    </div>
+</section>
+
+<section class="section section-soft">
+    <div class="container">
+        <div class="section-heading split">
+            <div>
+                <span class="eyebrow">Featured Services</span>
+                <h2>Interior work services tailored to how you live and work.</h2>
+            </div>
+            <a href="{{ url_for('public.services') }}" class="text-link">See all services</a>
+        </div>
+        <div class="card-grid">
+            {% for service in featured_services %}
+                <article class="info-card">
+                    <div class="media-placeholder">
+                        {% if service.image_filename %}
+                            <img src="{{ url_for('static', filename='uploads/' ~ service.image_filename) }}" alt="{{ service.title }}">
+                        {% else %}
+                            <span>{{ service.title[:1] }}</span>
+                        {% endif %}
+                    </div>
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.short_description }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading split">
+            <div>
+                <span class="eyebrow">Featured Projects</span>
+                <h2>Recent spaces shaped with detail, utility, and warmth.</h2>
+            </div>
+            <a href="{{ url_for('public.projects') }}" class="text-link">Explore portfolio</a>
+        </div>
+        <div class="project-grid">
+            {% for project in featured_projects %}
+                <article class="project-card">
+                    <div class="media-placeholder large">
+                        {% if project.image_filename %}
+                            <img src="{{ url_for('static', filename='uploads/' ~ project.image_filename) }}" alt="{{ project.title }}">
+                        {% else %}
+                            <span>{{ project.category }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="project-card-body">
+                        <span class="project-tag">{{ project.category }}</span>
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.short_description }}</p>
+                        <a href="{{ url_for('public.project_detail', slug=project.slug) }}" class="text-link">View details</a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow">Why Choose Us</span>
+            <h2>Design decisions that stay grounded in your needs.</h2>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>Clear planning</h3>
+                <p>We organize scope, material direction, and timelines so the process feels manageable.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Practical design</h3>
+                <p>Each room is planned around storage, movement, lighting, and everyday comfort.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Clean execution</h3>
+                <p>We focus on neat detailing, cohesive finishes, and reliable interior work delivery.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading split">
+            <div>
+                <span class="eyebrow">Testimonials</span>
+                <h2>What clients say about working with Rockwood Studio.</h2>
+            </div>
+            <a href="{{ url_for('public.testimonials') }}" class="text-link">Read more</a>
+        </div>
+        <div class="testimonial-grid">
+            {% for testimonial in testimonials %}
+                <article class="testimonial-card">
+                    <div class="stars">{{ "&#9733;"|safe * testimonial.rating }}{{ "&#9734;"|safe * (5 - testimonial.rating) }}</div>
+                    <p>"{{ testimonial.review }}"</p>
+                    <strong>{{ testimonial.client_name }}</strong>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section cta-section">
+    <div class="container cta-box">
+        <div>
+            <span class="eyebrow">Start Your Project</span>
+            <h2>Let's plan a space that feels elegant, functional, and truly yours.</h2>
+        </div>
+        <a href="{{ url_for('public.contact') }}" class="btn btn-primary">Book a Consultation</a>
+    </div>
+</section>
+{% endblock %}

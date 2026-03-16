@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container narrow">
+        <span class="eyebrow">Projects / Portfolio</span>
+        <h1>Explore interior projects across residential and commercial spaces.</h1>
+        <p>Filter by category or search by title and location to quickly find relevant work.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <form class="filter-bar" method="get">
+            <input type="text" name="search" value="{{ search_query }}" placeholder="Search projects">
+            <select name="category">
+                <option value="">All Categories</option>
+                {% for category in categories %}
+                    <option value="{{ category }}" {% if active_category == category %}selected{% endif %}>{{ category }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Apply</button>
+            <a href="{{ url_for('public.projects') }}" class="btn btn-secondary">Reset</a>
+        </form>
+
+        <div class="project-grid">
+            {% for project in projects %}
+                <article class="project-card">
+                    <div class="media-placeholder large">
+                        {% if project.image_filename %}
+                            <img src="{{ url_for('static', filename='uploads/' ~ project.image_filename) }}" alt="{{ project.title }}">
+                        {% else %}
+                            <span>{{ project.category }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="project-card-body">
+                        <span class="project-tag">{{ project.category }}</span>
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.short_description }}</p>
+                        <small>{{ project.location or 'Location update coming soon' }}</small>
+                        <a href="{{ url_for('public.project_detail', slug=project.slug) }}" class="text-link">View project</a>
+                    </div>
+                </article>
+            {% else %}
+                <p>No projects found for the selected filters.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

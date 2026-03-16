@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container narrow">
+        <span class="eyebrow">Gallery</span>
+        <h1>A visual collection of finished details, materials, and transformed spaces.</h1>
+        <p>Click any image to preview it in a larger lightbox.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container gallery-grid">
+        {% for image in images %}
+            <button class="gallery-card" type="button" data-lightbox="{{ url_for('static', filename='uploads/' ~ image.image_filename) }}" data-title="{{ image.title }}">
+                <img src="{{ url_for('static', filename='uploads/' ~ image.image_filename) }}" alt="{{ image.alt_text or image.title }}">
+                <span>{{ image.title }}</span>
+            </button>
+        {% else %}
+            <p>No gallery images added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" type="button" id="lightboxClose">×</button>
+    <img id="lightboxImage" src="" alt="">
+    <p id="lightboxTitle"></p>
+</div>
+{% endblock %}

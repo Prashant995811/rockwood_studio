@@ -1,0 +1,28 @@
+<div class="form-grid">
+    <div class="form-group">
+        {{ form.name.label }}
+        {{ form.name(placeholder="Your name") }}
+        {% for error in form.name.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email(placeholder="you@example.com") }}
+        {% for error in form.email.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.phone.label }}
+        {{ form.phone(placeholder="Phone number") }}
+        {% for error in form.phone.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.subject.label }}
+        {{ form.subject(placeholder="Subject") }}
+        {% for error in form.subject.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+    </div>
+    <div class="form-group full-width">
+        {{ form.message.label }}
+        {{ form.message(rows="6", placeholder="Tell us about your project") }}
+        {% for error in form.message.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+    </div>
+</div>
+{{ form.submit(class_="btn btn-primary") }}

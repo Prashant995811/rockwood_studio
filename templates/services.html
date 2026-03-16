@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container narrow">
+        <span class="eyebrow">Services</span>
+        <h1>Complete interior work services for homes, offices, and custom spaces.</h1>
+        <p>Each service is flexible and can be tailored around your space, style, and day-to-day use.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container card-grid">
+        {% for service in services %}
+            <article class="info-card">
+                <div class="media-placeholder">
+                    {% if service.image_filename %}
+                        <img src="{{ url_for('static', filename='uploads/' ~ service.image_filename) }}" alt="{{ service.title }}">
+                    {% else %}
+                        <span>{{ service.title[:1] }}</span>
+                    {% endif %}
+                </div>
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.short_description }}</p>
+                <div class="service-copy">{{ service.full_description }}</div>
+            </article>
+        {% else %}
+            <p>No services added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

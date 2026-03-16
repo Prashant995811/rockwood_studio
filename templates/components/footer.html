@@ -1,0 +1,32 @@
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div>
+            <h3>{{ site_settings.company_name }}</h3>
+            <p>{{ site_settings.footer_text }}</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="{{ url_for('public.about') }}">About Us</a></li>
+                <li><a href="{{ url_for('public.services') }}">Services</a></li>
+                <li><a href="{{ url_for('public.projects') }}">Projects</a></li>
+                <li><a href="{{ url_for('public.contact') }}">Contact</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>{{ site_settings.contact_email }}</p>
+            <p>{{ site_settings.phone }}</p>
+            <p>{{ site_settings.address }}</p>
+        </div>
+        <div>
+            <h4>Social</h4>
+            <div class="social-links">
+                <a href="{{ site_settings.facebook_url or '#' }}" target="_blank" rel="noopener">Facebook</a>
+                <a href="{{ site_settings.instagram_url or '#' }}" target="_blank" rel="noopener">Instagram</a>
+                <a href="{{ site_settings.linkedin_url or '#' }}" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="{{ site_settings.youtube_url or '#' }}" target="_blank" rel="noopener">YouTube</a>
+            </div>
+        </div>
+    </div>
+</footer>

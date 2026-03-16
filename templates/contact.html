@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container narrow">
+        <span class="eyebrow">Contact Us</span>
+        <h1>Tell us about your interior project and we’ll get back to you.</h1>
+        <p>Your message will be saved in the admin panel and forwarded to your email through Formspree once configured.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container contact-layout">
+        <div class="stack-card">
+            <h2>Send a Message</h2>
+            <form method="post" class="site-form">
+                {{ form.hidden_tag() }}
+                {% include 'components/contact_form_fields.html' %}
+            </form>
+        </div>
+        <div class="stack-card">
+            <h2>Contact Details</h2>
+            <p><strong>Email:</strong> {{ site_settings.contact_email }}</p>
+            <p><strong>Phone:</strong> {{ site_settings.phone }}</p>
+            <p><strong>Address:</strong> {{ site_settings.address }}</p>
+            <div class="social-links">
+                <a href="{{ site_settings.facebook_url or '#' }}" target="_blank" rel="noopener">Facebook</a>
+                <a href="{{ site_settings.instagram_url or '#' }}" target="_blank" rel="noopener">Instagram</a>
+                <a href="{{ site_settings.linkedin_url or '#' }}" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="{{ site_settings.youtube_url or '#' }}" target="_blank" rel="noopener">YouTube</a>
+            </div>
+            <div class="map-frame">
+                <iframe src="{{ site_settings.map_embed_url }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen title="Map"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

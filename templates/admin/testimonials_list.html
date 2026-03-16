@@ -1,0 +1,40 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header">
+    <div><h1>Testimonials</h1><p>Manage client reviews and ratings.</p></div>
+    <a href="{{ url_for('admin.create_testimonial') }}" class="btn-admin">Add Testimonial</a>
+</div>
+
+<section class="panel">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Rating</th>
+                    <th>Featured</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for testimonial in testimonials %}
+                    <tr>
+                        <td>{{ testimonial.client_name }}</td>
+                        <td>{{ testimonial.rating }}/5</td>
+                        <td>{{ 'Yes' if testimonial.is_featured else 'No' }}</td>
+                        <td class="actions">
+                            <a href="{{ url_for('admin.edit_testimonial', testimonial_id=testimonial.id) }}">Edit</a>
+                            <form method="post" action="{{ url_for('admin.delete_testimonial', testimonial_id=testimonial.id) }}">
+                                <button type="submit" class="link-button" onclick="return confirm('Delete this testimonial?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="4">No testimonials added yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

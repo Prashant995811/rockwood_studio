@@ -1,0 +1,38 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header">
+    <div><h1>Services</h1><p>Manage the services shown on the website.</p></div>
+    <a href="{{ url_for('admin.create_service') }}" class="btn-admin">Add Service</a>
+</div>
+
+<section class="panel">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Featured</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                    <tr>
+                        <td>{{ service.title }}</td>
+                        <td>{{ 'Yes' if service.is_featured else 'No' }}</td>
+                        <td class="actions">
+                            <a href="{{ url_for('admin.edit_service', service_id=service.id) }}">Edit</a>
+                            <form method="post" action="{{ url_for('admin.delete_service', service_id=service.id) }}">
+                                <button type="submit" class="link-button" onclick="return confirm('Delete this service?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="3">No services added yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

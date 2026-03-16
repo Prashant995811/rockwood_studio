@@ -1,0 +1,14 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header"><div><h1>{{ title }}</h1></div></div>
+<section class="panel">
+    <form method="post" enctype="multipart/form-data" class="admin-form">
+        {{ form.hidden_tag() }}
+        <label>{{ form.title.label }}{{ form.title() }}</label>
+        <label>{{ form.alt_text.label }}{{ form.alt_text() }}</label>
+        <label>{{ form.image.label }}{{ form.image() }}</label>
+        {{ form.submit(class_="btn-admin") }}
+    </form>
+</section>
+{% endblock %}

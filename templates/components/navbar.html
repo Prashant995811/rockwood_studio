@@ -1,0 +1,28 @@
+<header class="site-header" id="siteHeader">
+    <div class="container nav-shell">
+        <a href="{{ url_for('public.home') }}" class="brand">
+            {% if site_settings.logo_filename %}
+                <img src="{{ url_for('static', filename='uploads/' ~ site_settings.logo_filename) }}" alt="{{ site_settings.company_name }} logo" class="brand-logo">
+            {% else %}
+                <span class="brand-mark">RS</span>
+            {% endif %}
+            <span>
+                <strong>{{ site_settings.company_name }}</strong>
+                <small>{{ site_settings.tagline }}</small>
+            </span>
+        </a>
+
+        <button class="nav-toggle" type="button" id="navToggle" aria-label="Open navigation">Menu</button>
+
+        <nav class="main-nav" id="mainNav">
+            <a href="{{ url_for('public.home') }}" class="{% if request.endpoint == 'public.home' %}active{% endif %}">Home</a>
+            <a href="{{ url_for('public.about') }}" class="{% if request.endpoint == 'public.about' %}active{% endif %}">About</a>
+            <a href="{{ url_for('public.services') }}" class="{% if request.endpoint == 'public.services' %}active{% endif %}">Services</a>
+            <a href="{{ url_for('public.projects') }}" class="{% if request.endpoint in ['public.projects', 'public.project_detail'] %}active{% endif %}">Projects</a>
+            <a href="{{ url_for('public.gallery') }}" class="{% if request.endpoint == 'public.gallery' %}active{% endif %}">Gallery</a>
+            <a href="{{ url_for('public.testimonials') }}" class="{% if request.endpoint == 'public.testimonials' %}active{% endif %}">Testimonials</a>
+            <a href="{{ url_for('public.contact') }}" class="{% if request.endpoint == 'public.contact' %}active{% endif %}">Contact</a>
+            <a href="{{ url_for('admin.login') }}" class="nav-admin">Admin Login</a>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,46 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header">
+    <div><h1>Contact Inquiries</h1><p>View visitor messages saved in the database.</p></div>
+</div>
+
+<section class="panel">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inquiry in inquiries %}
+                    <tr>
+                        <td>{{ inquiry.name }}</td>
+                        <td>{{ inquiry.email }}</td>
+                        <td>{{ inquiry.phone or '-' }}</td>
+                        <td>{{ inquiry.subject }}</td>
+                        <td>{{ inquiry.message }}</td>
+                        <td>
+                            <form method="post" action="{{ url_for('admin.update_inquiry_status', inquiry_id=inquiry.id) }}">
+                                <select name="status" onchange="this.form.submit()">
+                                    {% for status in ['New', 'In Progress', 'Closed'] %}
+                                        <option value="{{ status }}" {% if inquiry.status == status %}selected{% endif %}>{{ status }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="6">No inquiries received yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="admin-login-page">
+    <div class="login-card">
+        <a href="{{ url_for('public.home') }}" class="admin-website-link">Back to Website</a>
+        <h1>Admin Login</h1>
+        <p>Use the default admin credentials from your `.env` file.</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="post" class="admin-form">
+            {{ form.hidden_tag() }}
+            <label>{{ form.username.label }}{{ form.username() }}</label>
+            <label>{{ form.password.label }}{{ form.password() }}</label>
+            {{ form.submit(class_="btn-admin") }}
+        </form>
+    </div>
+</body>
+</html>

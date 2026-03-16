@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container narrow">
+        <span class="eyebrow">{{ project.category }}</span>
+        <h1>{{ project.title }}</h1>
+        <p>{{ project.short_description }}</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container two-column">
+        <div class="detail-card">
+            <div class="media-placeholder large detail-media">
+                {% if project.image_filename %}
+                    <img src="{{ url_for('static', filename='uploads/' ~ project.image_filename) }}" alt="{{ project.title }}">
+                {% else %}
+                    <span>{{ project.title }}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="stack-card">
+            <h2>Project Details</h2>
+            <p>{{ project.full_description }}</p>
+            <p><strong>Category:</strong> {{ project.category }}</p>
+            <p><strong>Location:</strong> {{ project.location or 'To be updated' }}</p>
+            <p><strong>Completion Date:</strong> {{ project.completion_date.strftime('%d %b %Y') if project.completion_date else 'To be updated' }}</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

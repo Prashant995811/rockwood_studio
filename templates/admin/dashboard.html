@@ -1,0 +1,48 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header">
+    <div>
+        <h1>Dashboard</h1>
+        <p>Overview of your website content and recent contact activity.</p>
+    </div>
+</div>
+
+<div class="stats-grid">
+    {% for label, value in stats.items() %}
+        <div class="stat-card">
+            <span>{{ label|title }}</span>
+            <strong>{{ value }}</strong>
+        </div>
+    {% endfor %}
+</div>
+
+<section class="panel">
+    <div class="panel-header">
+        <h2>Recent Inquiries</h2>
+        <a href="{{ url_for('admin.inquiries') }}">View all</a>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inquiry in recent_inquiries %}
+                    <tr>
+                        <td>{{ inquiry.name }}</td>
+                        <td>{{ inquiry.subject }}</td>
+                        <td>{{ inquiry.status }}</td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="3">No inquiries yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

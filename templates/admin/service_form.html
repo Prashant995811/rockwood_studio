@@ -1,0 +1,22 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header"><div><h1>{{ title }}</h1></div></div>
+<section class="panel">
+    <form method="post" enctype="multipart/form-data" class="admin-form two-col">
+        {{ form.hidden_tag() }}
+        <label>{{ form.title.label }}{{ form.title() }}</label>
+        <label>{{ form.short_description.label }}{{ form.short_description() }}</label>
+        <label class="full">{{ form.full_description.label }}{{ form.full_description(rows="6") }}</label>
+        <label>{{ form.image.label }}{{ form.image() }}</label>
+        <label class="check">{{ form.is_featured() }} {{ form.is_featured.label.text }}</label>
+        {{ form.submit(class_="btn-admin") }}
+    </form>
+    {% if service and service.image_filename %}
+        <img class="thumb-preview" src="{{ url_for('static', filename='uploads/' ~ service.image_filename) }}" alt="{{ service.title }}">
+        <form method="post" action="{{ url_for('admin.delete_service_image', service_id=service.id) }}">
+            <button type="submit" class="link-button" onclick="return confirm('Remove this service image?')">Remove Image</button>
+        </form>
+    {% endif %}
+</section>
+{% endblock %}

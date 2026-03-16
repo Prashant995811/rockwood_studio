@@ -1,0 +1,40 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header">
+    <div><h1>Projects</h1><p>Manage portfolio items and categories.</p></div>
+    <a href="{{ url_for('admin.create_project') }}" class="btn-admin">Add Project</a>
+</div>
+
+<section class="panel">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project.title }}</td>
+                        <td>{{ project.category }}</td>
+                        <td>{{ project.location or '-' }}</td>
+                        <td class="actions">
+                            <a href="{{ url_for('admin.edit_project', project_id=project.id) }}">Edit</a>
+                            <form method="post" action="{{ url_for('admin.delete_project', project_id=project.id) }}">
+                                <button type="submit" class="link-button" onclick="return confirm('Delete this project?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="4">No projects added yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

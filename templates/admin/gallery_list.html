@@ -1,0 +1,22 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header">
+    <div><h1>Gallery</h1><p>Upload and manage visual project highlights.</p></div>
+    <a href="{{ url_for('admin.create_gallery_image') }}" class="btn-admin">Add Image</a>
+</div>
+
+<section class="panel gallery-admin-grid">
+    {% for image in images %}
+        <article class="mini-card">
+            <img src="{{ url_for('static', filename='uploads/' ~ image.image_filename) }}" alt="{{ image.alt_text or image.title }}">
+            <h3>{{ image.title }}</h3>
+            <form method="post" action="{{ url_for('admin.delete_gallery_image', image_id=image.id) }}">
+                <button type="submit" class="link-button" onclick="return confirm('Delete this image?')">Delete</button>
+            </form>
+        </article>
+    {% else %}
+        <p>No gallery images added yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}

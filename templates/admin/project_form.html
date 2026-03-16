@@ -1,0 +1,25 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header"><div><h1>{{ title }}</h1></div></div>
+<section class="panel">
+    <form method="post" enctype="multipart/form-data" class="admin-form two-col">
+        {{ form.hidden_tag() }}
+        <label>{{ form.title.label }}{{ form.title() }}</label>
+        <label>{{ form.category.label }}{{ form.category() }}</label>
+        <label>{{ form.short_description.label }}{{ form.short_description() }}</label>
+        <label>{{ form.location.label }}{{ form.location() }}</label>
+        <label>{{ form.completion_date.label }}{{ form.completion_date() }}</label>
+        <label>{{ form.image.label }}{{ form.image() }}</label>
+        <label class="full">{{ form.full_description.label }}{{ form.full_description(rows="6") }}</label>
+        <label class="check">{{ form.is_featured() }} {{ form.is_featured.label.text }}</label>
+        {{ form.submit(class_="btn-admin") }}
+    </form>
+    {% if project and project.image_filename %}
+        <img class="thumb-preview" src="{{ url_for('static', filename='uploads/' ~ project.image_filename) }}" alt="{{ project.title }}">
+        <form method="post" action="{{ url_for('admin.delete_project_image', project_id=project.id) }}">
+            <button type="submit" class="link-button" onclick="return confirm('Remove this project image?')">Remove Image</button>
+        </form>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+<div class="admin-header"><div><h1>Website Settings</h1><p>Update shared website content and contact details.</p></div></div>
+<section class="panel">
+    <form method="post" enctype="multipart/form-data" class="admin-form two-col">
+        {{ form.hidden_tag() }}
+        <label>{{ form.logo.label }}{{ form.logo() }}</label>
+        <label>{{ form.company_name.label }}{{ form.company_name() }}</label>
+        <label>{{ form.tagline.label }}{{ form.tagline() }}</label>
+        <label>{{ form.contact_email.label }}{{ form.contact_email() }}</label>
+        <label>{{ form.phone.label }}{{ form.phone() }}</label>
+        <label class="full">{{ form.address.label }}{{ form.address() }}</label>
+        <label class="full">{{ form.hero_title.label }}{{ form.hero_title() }}</label>
+        <label class="full">{{ form.hero_subtitle.label }}{{ form.hero_subtitle(rows="5") }}</label>
+        <label class="full">{{ form.footer_text.label }}{{ form.footer_text() }}</label>
+        <label>{{ form.facebook_url.label }}{{ form.facebook_url() }}</label>
+        <label>{{ form.instagram_url.label }}{{ form.instagram_url() }}</label>
+        <label>{{ form.linkedin_url.label }}{{ form.linkedin_url() }}</label>
+        <label>{{ form.youtube_url.label }}{{ form.youtube_url() }}</label>
+        <label class="full">{{ form.map_embed_url.label }}{{ form.map_embed_url(rows="4") }}</label>
+        {{ form.submit(class_="btn-admin") }}
+    </form>
+    {% if site_settings.logo_filename %}
+        <div class="logo-preview-wrap">
+            <p>Current logo</p>
+            <img class="logo-preview" src="{{ url_for('static', filename='uploads/' ~ site_settings.logo_filename) }}" alt="{{ site_settings.company_name }} logo">
+            <form method="post" action="{{ url_for('admin.delete_logo') }}">
+                <button type="submit" class="link-button" onclick="return confirm('Remove the current website logo?')">Remove Logo</button>
+            </form>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

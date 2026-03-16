@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container narrow">
+        <span class="eyebrow">Testimonials</span>
+        <h1>Feedback from clients who trusted us with their interior spaces.</h1>
+        <p>Every review reflects our focus on smooth coordination, useful design, and clean final execution.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container testimonial-grid">
+        {% for testimonial in testimonials %}
+            <article class="testimonial-card">
+                <div class="stars">{{ "★" * testimonial.rating }}{{ "☆" * (5 - testimonial.rating) }}</div>
+                <p>"{{ testimonial.review }}"</p>
+                <strong>{{ testimonial.client_name }}</strong>
+            </article>
+        {% else %}
+            <p>No testimonials added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
