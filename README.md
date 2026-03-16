@@ -187,11 +187,17 @@ Set these environment variables in Render:
 
 - `DATABASE_URL` = your Neon connection string
 - `DEFAULT_ADMIN_PASSWORD` = your chosen admin password
-- `FORMSPREE_ENDPOINT` = your Formspree URL
+- `FORMSPREE_ENDPOINT` = your Formspree endpoint
 
 Render will auto-generate:
 
 - `SECRET_KEY`
+
+Render start command:
+
+```text
+gunicorn wsgi:app
+```
 
 #### 4. Open your deployed website
 
