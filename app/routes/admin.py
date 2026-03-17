@@ -38,7 +38,7 @@ def login():
 def logout():
     session.pop("admin_user_id", None)
     flash("You have been logged out.", "info")
-    return redirect(url_for("admin.login"))
+    return redirect(url_for("rrrrrrrrr.login"))
 
 
 @admin_bp.route("/")
